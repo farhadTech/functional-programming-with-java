@@ -1,6 +1,7 @@
 package programming;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 public class FP02Exercise {
@@ -20,6 +21,16 @@ public class FP02Exercise {
 
         System.out.println("sorted and distinct numbers:");
         printDistinctAndSortedNumbers(numbers);
+
+        System.out.println("Comparators to sort streams ascending order: ");
+        courses.stream().sorted(Comparator.naturalOrder()).forEach(System.out::println);
+
+        System.out.println("Comparators to sort streams descending order: ");
+        courses.stream().sorted(Comparator.reverseOrder()).forEach(System.out::println);
+
+        System.out.println("Define Custom comparator based on length of the course name: ");
+//        courses.stream().sorted(Comparator.comparing(String::length)).forEach(System.out::println);
+        courses.stream().sorted(Comparator.comparing(str -> str.length())).forEach(System.out::println);
     }
 
     private static void printDistinctAndSortedNumbers(List<Integer> numbers) {
