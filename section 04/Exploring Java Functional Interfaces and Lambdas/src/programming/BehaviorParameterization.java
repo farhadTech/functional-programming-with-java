@@ -2,7 +2,9 @@ package programming;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class BehaviorParameterization {
     public static void main(String[] args) {
@@ -23,7 +25,20 @@ public class BehaviorParameterization {
         filterAndPrint(numbers, x -> x % 2 == 0);
 //        filterAndPrint(numbers, x -> x % 2 != 0);
 //        filterAndPrint(numbers, x -> x % 3 == 0);
+
+        Function<Integer, Integer> integerFunction = new Function<Integer, Integer>() {
+            @Override
+            public Integer apply(Integer number) {
+                return number * number;
+            }
+        };
+
+        List squaredNumbers = numbers.stream()
+                .map(integerFunction)
+                .collect(Collectors.toList());
+        System.out.println(squaredNumbers);
     }
+
     private static void filterAndPrint(List<Integer> numbers, Predicate<? super Integer> predicate) {
         numbers.stream()
                 .filter(predicate)
