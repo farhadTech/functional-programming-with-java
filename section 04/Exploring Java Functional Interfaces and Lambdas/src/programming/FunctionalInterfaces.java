@@ -1,6 +1,7 @@
 package programming;
 
 import java.util.List;
+import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -55,5 +56,23 @@ public class FunctionalInterfaces {
 
 
         /* Behind every lambda expression is we write there is functional interfaces. */
+
+
+        /** Find functional interface behind the argument of reduce method.
+         * Create an implementation for the functional interface. **/
+
+
+        BinaryOperator<Integer> binaryOperator = Integer::sum;
+        BinaryOperator<Integer> sumBinaryOperator = new BinaryOperator<Integer>() {
+
+            @Override
+            public Integer apply(Integer a, Integer b) {
+                return a + b;
+            }
+        };
+
+        int sum = numbers.stream()
+                .reduce(0, binaryOperator);
+        System.out.println("sum = " + sum);
     }
 }
