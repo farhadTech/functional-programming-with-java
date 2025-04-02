@@ -43,7 +43,7 @@ public class CustomClass {
         Comparator comparingByNoOfStudentsDecreasing
                 = Comparator.comparing(Course::getNoOfStudents).reversed();
 
-        Comparator <Course> comparingByNoOfStudentsAndNoOfReviews
+        Comparator<Course> comparingByNoOfStudentsAndNoOfReviews
                 = Comparator.comparing(Course::getNoOfStudents).thenComparing(Course::getReviewScore);
 
         System.out.println(courses.stream()
@@ -56,8 +56,31 @@ public class CustomClass {
 
         System.out.println(courses.stream()
                 .sorted(comparingByNoOfStudentsAndNoOfReviews)
-                .collect(Collectors.toList())
-        );
+                .collect(Collectors.toList()));
+
+        /** Playing with skip, limit, takeWhile and dropWhile **/
+        // print first 5 elements
+        System.out.println(courses.stream()
+                .sorted(comparingByNoOfStudentsAndNoOfReviews)
+                .limit(5)
+                .collect(Collectors.toList()));
+
+        // skip first 3 elements and then print 5 elements
+        System.out.println(courses.stream()
+                .sorted(comparingByNoOfStudentsAndNoOfReviews)
+                .skip(3)
+                .limit(5)
+                .collect(Collectors.toList()));
+
+        // as long as the condition is true it will take the elements
+        System.out.println(courses.stream()
+                .takeWhile(course -> course.getReviewScore() >= 95)
+                .collect(Collectors.toList()));
+
+        // as long as the condition is true it will drop/skip the elements
+        System.out.println(courses.stream()
+                .takeWhile(course -> course.getReviewScore() <= 90)
+                .collect(Collectors.toList()));
     }
 }
 
