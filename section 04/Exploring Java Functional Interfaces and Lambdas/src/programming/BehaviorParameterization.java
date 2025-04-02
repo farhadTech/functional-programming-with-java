@@ -26,17 +26,20 @@ public class BehaviorParameterization {
 //        filterAndPrint(numbers, x -> x % 2 != 0);
 //        filterAndPrint(numbers, x -> x % 3 == 0);
 
-        Function<Integer, Integer> integerFunction = new Function<Integer, Integer>() {
-            @Override
-            public Integer apply(Integer number) {
-                return number * number;
-            }
-        };
 
-        List squaredNumbers = numbers.stream()
-                .map(integerFunction)
+        List<Integer> squaredNumbers = mapAndCreateNewList(numbers, x -> x * x);
+        List<Integer> cubedNumbers = mapAndCreateNewList(numbers, x -> x * x * x);
+        List<Integer> doubledNumbers = mapAndCreateNewList(numbers, x -> x + x);
+        System.out.println("Squared numbers: " + squaredNumbers);
+        Function<Integer, Integer> mappingFunction = x -> x * x;
+    }
+
+    private static List<Integer> mapAndCreateNewList(List<Integer> numbers,
+                                                     Function<Integer, Integer> mappingFunction) {
+        return numbers.stream()
+                .map(mappingFunction)
                 .collect(Collectors.toList());
-        System.out.println(squaredNumbers);
+
     }
 
     private static void filterAndPrint(List<Integer> numbers, Predicate<? super Integer> predicate) {
