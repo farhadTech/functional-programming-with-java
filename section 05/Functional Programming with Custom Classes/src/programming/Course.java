@@ -46,7 +46,7 @@ public class Course {
     }
 
     public String toString() {
-        return name + " " + category + " " + reviewScore + " " + noOfStudents;
+        return name + " : " + noOfStudents + " : " + reviewScore;
     }
 }
 

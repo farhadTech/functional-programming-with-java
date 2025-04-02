@@ -3,8 +3,10 @@ package programming;
 import programming.Course;
 import programming.CustomClass;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class CustomClass {
     public static void main(String[] args) {
@@ -35,6 +37,27 @@ public class CustomClass {
         System.out.println(courses.stream().allMatch(reviewScoreLessThan90Predicate)); // false
         System.out.println(courses.stream().allMatch(reviewScoreGreaterThan90Predicate)); // true
 
+        // sorting courses with sorted and creating comparators
+        Comparator comparingByNoOfStudents
+                = Comparator.comparing(Course::getNoOfStudents);
+        Comparator comparingByNoOfStudentsDecreasing
+                = Comparator.comparing(Course::getNoOfStudents).reversed();
+
+        Comparator <Course> comparingByNoOfStudentsAndNoOfReviews
+                = Comparator.comparing(Course::getNoOfStudents).thenComparing(Course::getReviewScore);
+
+        System.out.println(courses.stream()
+                .sorted(comparingByNoOfStudents)
+                .collect(Collectors.toList()));
+
+        System.out.println(courses.stream()
+                .sorted(comparingByNoOfStudentsDecreasing)
+                .collect(Collectors.toList()));
+
+        System.out.println(courses.stream()
+                .sorted(comparingByNoOfStudentsAndNoOfReviews)
+                .collect(Collectors.toList())
+        );
     }
 }
 
