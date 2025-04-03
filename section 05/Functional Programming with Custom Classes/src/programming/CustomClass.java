@@ -24,14 +24,15 @@ public class CustomClass {
                 );
 
         /** allMatch, noneMatch, anyMatch **/
-        System.out.println(courses.stream()
-                .allMatch(course -> course.getReviewScore() > 90)); // true
+//        System.out.println(courses.stream()
+//                .allMatch(course -> course.getReviewScore() > 90)); // true
+
 
         Predicate<Course> reviewScoreGreaterThan95Predicate = course -> course.getReviewScore() > 95;
         Predicate<Course> reviewScoreGreaterThan90Predicate = course -> course.getReviewScore() > 90;
         Predicate<Course> reviewScoreLessThan90Predicate = course -> course.getReviewScore() < 90;
 
-
+/*
         System.out.println(
                 courses.stream()
                 .noneMatch(reviewScoreGreaterThan95Predicate)
@@ -56,7 +57,7 @@ public class CustomClass {
                 .allMatch(reviewScoreGreaterThan90Predicate)
         ); // true
 
-
+*/
         // sorting courses with sorted and creating comparators
         Comparator comparingByNoOfStudents
                 = Comparator.comparing(Course::getNoOfStudents);
@@ -66,7 +67,7 @@ public class CustomClass {
         Comparator<Course> comparingByNoOfStudentsAndNoOfReviews
                 = Comparator.comparing(Course::getNoOfStudents).thenComparing(Course::getReviewScore);
 
-
+/*
         System.out.println(
                 courses.stream()
                         .sorted(comparingByNoOfStudents)
@@ -91,10 +92,10 @@ public class CustomClass {
         );
         // output: [FullStack:14000:91, Spring Boot:18000:95, Kubernetes:20000:91, Docker:20000:92, Spring:20000:98,
         // AWS:21000:92, Azure:21000:99, API:22000:97, Microservices:25000:96]
-
+*/
 
         /** Finding top, max and min courses with max , min, findFirst and findAny **/
-
+/*
         // Finding the course with the highest number of students and reviews
         System.out.println(
                 courses.stream()
@@ -129,12 +130,12 @@ public class CustomClass {
                         .orElse(new Course("Spring", "Framework", 98, 20000))
         );
 //        output: Spring:20000:98
-
+*/
         /** Optional: Typically in java programming we are used to handling lot of nulls.
          * Using nulls as a way to indicate the absence of a value in our databases. However,
          * this causes nullPointerException. Optional is a way to get around that.
          */
-
+/*
         System.out.println("First course found with review score > 90:");
         System.out.println(
                 courses.stream()
@@ -149,7 +150,41 @@ public class CustomClass {
                         .findAny()
         );
 //        output: Optional[Spring:20000:98]
+*/
 
+        // Playing with sum, average and count
+
+        // total number of students present
+        System.out.println(
+                courses.stream()
+                        .filter(reviewScoreGreaterThan95Predicate)
+//                        .mapToInt(course -> course.getNoOfStudents())
+//                        .map(Course::getNoOfStudents)
+                        .mapToInt(Course::getNoOfStudents)
+                        .sum()
+        );
+
+        // average of students of total number of students present in each Course
+        System.out.println(
+                courses.stream()
+                        .filter(reviewScoreGreaterThan90Predicate)
+                        .mapToInt(Course::getNoOfStudents)
+                        .average()
+        );
+        // total number present in the course
+        System.out.println(
+                courses.stream()
+                        .filter(reviewScoreGreaterThan90Predicate)
+                        .count()
+        );
+
+        //A course with maximum of students
+        System.out.println(
+                courses.stream()
+                        .filter(reviewScoreGreaterThan95Predicate)
+                        .mapToInt(Course::getNoOfStudents)
+                        .max()
+        );
     }
 }
 
