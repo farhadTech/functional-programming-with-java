@@ -152,6 +152,7 @@ public class CustomClass {
 //        output: Optional[Spring:20000:98]
 */
 
+        /*
         // Playing with sum, average and count
 
         // total number of students present
@@ -185,6 +186,47 @@ public class CustomClass {
                         .mapToInt(Course::getNoOfStudents)
                         .max()
         );
+
+         */
+
+        // Grouping courses by category and storing them in a Map
+        System.out.println(
+                courses.stream()
+                        .collect(Collectors.groupingBy(Course::getCategory))
+                // This groups all courses based on their category and stores them in a Map<Category, List<Course>>.
+        );
+
+// Counting the number of courses in each category
+        System.out.println(
+                courses.stream()
+                        .collect(Collectors.groupingBy(
+                                Course::getCategory, Collectors.counting()
+                                // Instead of storing the courses, this collects the count of courses in each category.
+                        )       )
+        );
+
+// Finding the course with the highest review score in each category
+        System.out.println(
+                courses.stream()
+                        .collect(Collectors.groupingBy(
+                                Course::getCategory, Collectors.maxBy(
+                                        Comparator.comparing(Course::getReviewScore)
+                                        // This finds the course with the maximum review score for each category.
+                                )       )
+                        )
+        );
+
+// Mapping only the review scores of courses instead of the full Course object
+        System.out.println(
+                courses.stream()
+                        .collect(Collectors.groupingBy(
+                                Course::getCategory, Collectors.mapping(
+                                        Course::getReviewScore, Collectors.toList()
+                                        // This extracts only the review scores of courses in each category and stores them as a list.
+                                )       )
+                        )
+        );
+
     }
 }
 
