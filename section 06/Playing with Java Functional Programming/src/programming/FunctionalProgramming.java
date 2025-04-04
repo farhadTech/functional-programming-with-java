@@ -65,7 +65,6 @@ public class FunctionalProgramming {
                 .mapToObj(BigInteger::valueOf)
                 .reduce(BigInteger.ONE, BigInteger::multiply)
         );
-
     }
 }
 
